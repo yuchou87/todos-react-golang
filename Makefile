@@ -6,6 +6,7 @@ GOOS=$(shell go env GOOS)
 GOARCH=$(shell go env GOARCH)
 GOBASE=$(shell pwd)
 GOBIN=$(GOBASE)/app/release
+APPNAME=app
 
 REPOSITORY=localhost:32000
 APP_IMAGE=$(REPOSITORY)/app:latest
@@ -34,5 +35,5 @@ deploy-images:
 
 clean:
 	@echo " > Cleaning build cache..."
-	@GO111MODULE=on go clean
+	@cd app; GO111MODULE=on go clean; cd -
 	@-rm -rf $(GOBIN)
