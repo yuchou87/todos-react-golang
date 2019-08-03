@@ -4,7 +4,7 @@ all: build-web build-images push-images
 REPOSITORY=localhost:32000
 WEB_IMAGE=$(REPOSITORY)/web:latest
 
-build-web:
+build-web: clean
 	@echo "> Building web..."
 	@yarn build
 
