@@ -1,7 +1,7 @@
 .PHONY: all
 all: build-go build-web deploy-images
 
-build-go: clean
+build-go:
 	@echo " > Building binary..."
 	@$(MAKE) -C app
 
