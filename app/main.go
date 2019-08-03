@@ -8,5 +8,6 @@ func main() {
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})
-	r.Run()
+	})
+	r.Run(":9090")
 }
