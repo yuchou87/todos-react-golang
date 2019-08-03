@@ -6,9 +6,9 @@ WEB_IMAGE=$(REPOSITORY)/web:latest
 
 build-web:
 	@echo "> Building web..."
-	@cd web; yarn build;cd -
+	@yarn build
 
-build-images: build-go
+build-images:
 	@echo " > Building docker images... "
 	@docker build -t $(WEB_IMAGE) .
 
