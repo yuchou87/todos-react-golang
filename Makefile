@@ -13,7 +13,7 @@ WEB_IMAGE=$(REPOSITORY)/web:latest
 
 build-go: clean
 	@echo " > Building binary..."
-	@CGO_ENABLED=0 GOOS=$(GOOS) GOARCH=$(GOARCH) GO111MODULE=on go build -mod vendor -v -a -o $(GOBIN)/$(GOOS)/$(GOARCH)/$(APPNAME)
+	@cd app; CGO_ENABLED=0 GOOS=$(GOOS) GOARCH=$(GOARCH) GO111MODULE=on go build -mod vendor -v -a -o $(GOBIN)/$(GOOS)/$(GOARCH)/$(APPNAME); cd -
 
 build-web:
 	@echo "> Building web..."
@@ -22,8 +22,8 @@ build-web:
 build-images: build-go
 	@echo " > Building docker images... "
 	@git pull
-	@cd app;docker build -t $(APP_IMAGE) .; cd -
-	@cd web;docker build -t $(WEB_IMAGE) .; cd -
+	@cd app; docker build -t $(APP_IMAGE) .; cd -
+	@cd web; docker build -t $(WEB_IMAGE) .; cd -
 
 push-images:
 	@docker push $(APP_IMAGE)
