@@ -9,6 +9,7 @@ func todosFunc(r *gin.RouterGroup) {
 	{
 		todo.GET("/", getTodo)
 		todo.POST("/", createTodo)
+		todo.PUT("/:id", updateTodo)
 		todo.DELETE("/:id", deleteTodo)
 	}
 }

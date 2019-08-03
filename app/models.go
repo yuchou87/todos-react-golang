@@ -9,4 +9,5 @@ type Todo struct {
 	gorm.Model
 	Content     string
 	IsCompleted bool
+	isDeleted   bool
 }
