@@ -5,7 +5,7 @@ GOVERSION=$(shell go version)
 GOOS=$(shell go env GOOS)
 GOARCH=$(shell go env GOARCH)
 GOBASE=$(shell pwd)
-GOBIN=$(GOBASE)/app/release
+GOBIN=$(GOBASE)/release
 APPNAME=app
 
 REPOSITORY=localhost:32000
