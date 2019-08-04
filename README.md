@@ -43,3 +43,44 @@ $ curl -XPOST http://localhost:8080/api/v1.0/todos/     # 创建一个todo
 $ curl -XPUT http://localhost:8080/api/v1.0/todos/1     # 更新一个todo
 $ curl -XDELETE http://localhost:8080/api/v1.0/todos/1  # 删除一个todo
 ```
+
+## 跨域
+
+### 后端配置
+
+```go
+func CORS() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
+	}
+}
+```
+
+### 前端配置
+
+```js
+useEffect(() => {
+  fetch("http://10.0.0.147:8080/api/v1.0/todos/", {
+    method: "GET",
+    mode: "cors",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      setTodos(data.data);
+    });
+}, []);
+```
