@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,7 +14,6 @@ func getTodo(c *gin.Context) {
 		c.JSON(502, gin.H{"message": "false", "data": ""})
 		return
 	}
-	fmt.Println(todos)
 	c.JSON(200, gin.H{"message": "true", "data": todos})
 }
 
