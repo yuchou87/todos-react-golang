@@ -1,46 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../App.css";
 import TodoForm from "../components/TodoForm";
 import Todo from "../components/Todo";
+import { getTodos, createTodo, updateTodo, deleteTodo } from "../api";
 
 function TodoList() {
-  const [todos, setTodos] = useState([
-    {
-      text: "Learn about React",
-      isCompleted: false
-    },
-    {
-      text: "Meet friend for lunch",
-      isCompleted: false
-    },
-    {
-      text: "Build really cool todo app",
-      isCompleted: false
-    }
-  ]);
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    getTodos().then(data => {
+      setTodos(data.data);
+    });
+  }, []);
 
   const addTodo = text => {
-    const newTodos = [...todos, { text }];
-    setTodos(newTodos);
+    createTodo(text);
   };
 
-  const completeTodo = index => {
-    const newTodos = [...todos];
-    newTodos[index].isCompleted = true;
-    setTodos(newTodos);
+  const completeTodo = id => {
+    updateTodo(id);
   };
 
-  const removeTodo = index => {
-    const newTodos = [...todos];
-    newTodos.splice(index, 1);
-    setTodos(newTodos);
+  const removeTodo = id => {
+    deleteTodo(id);
   };
+
   return (
     <div className="todo-list">
       {todos.map((todo, index) => (
         <Todo
           key={index}
-          index={index}
           todo={todo}
           completeTodo={completeTodo}
           removeTodo={removeTodo}
